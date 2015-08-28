@@ -55,5 +55,48 @@
         return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $store->getBrands(), 'all_brands' => Brand::getAll()));
     });
 
+    $app->post("/add_brands", function() use ($app) {
+        $store = Store::find($_POST['store_id']);
+        $brand = Brand::find($_POST['brand_id']);
+        $store->addBrand($brand);
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'stores' => Store::getAll(), 'brands' => $store->getBrands(), 'all_brands' => Brand::getAll()));
+    });
+
+    $app->post("/add_stores", function() use ($app) {
+        $store = Store::find($_POST['store_id']);
+        $brand = Brand::find($_POST['brand_id']);
+        $brand->addStore($store);
+        return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'brands' => Brand::getAll(), 'stores' => $brand->getStores(), 'all_stores' => Store::getAll()));
+    });
+
+    $app->get("/stores/{id}/edit", function($id) use ($app) {
+        $store = Store::find($id);
+        return $app['twig']->render('store_edit.html.twig', array('store' => $store));
+    });
+
+    $app->patch("/stores/{id}", function($id) use ($app) {
+        $name = $_POST['name'];
+        $store = Store::find($id);
+        $store->update($name);
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'stores' => Store::getAll(), 'brands' => $store->getBrands(), 'all_brands' => Brand::getAll()));
+        //return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $store->getBrands()));
+    });
+
+    $app->post("/delete_brands", function() use ($app) {
+        Brand::deleteAll();
+        return $app['twig']->render('index.html.twig');
+    });
+
+    $app->post("/delete_stores", function() use ($app) {
+        Store::deleteAll();
+        return $app['twig']->render('index.html.twig');
+    });
+
+    $app->delete("/stores/{id}", function($id) use ($app) {
+        $store = Store::find($id);
+        $store->delete();
+        return $app['twig']->render('index.html.twig', array('stores' => Store::getAll()));
+    });
+
     return $app;
 ?>

@@ -1,6 +1,8 @@
 <html>
 <head>
     <title>Shoe Stores</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
 </head>
 <body>
     <h1>Brands</h1>
@@ -15,14 +17,14 @@
     {% endif %}
 
     <form action='/brands' method='post'>
-        <label for='type'>Task type:</label>
+        <label for='type'>Shoe Brand:</label>
         <input id='type' name='type' type='text'>
 
         <button type='submit'>Add brand</button>
     </form>
 
     <form action='/delete_brands' method='post'>
-        <button type='submit'>Clear</button>
+        <button type='submit'>Clear all Brands</button>
     </form>
 
     <p><a href='/'>Home</a></p>
