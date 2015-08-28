@@ -225,5 +225,26 @@
             //Assert
             $this->assertEquals($test_store->getBrands(), [$test_brand, $test_brand2]);
         }
+
+        function testDelete()
+        {
+            //Arrange
+            $name = "Foot Locker";
+            $id = 1;
+            $test_store = new Store($name, $id);
+            $test_store->save();
+
+            $type = "Nike";
+            $id2 = 2;
+            $test_brand = new Brand($type, $id2);
+            $test_brand->save();
+
+            //Act
+            $test_store->addBrand($test_brand);
+            $test_store->delete();
+
+            //Assert
+            $this->assertEquals([], $test_brand->getStores());
+        }
     }
 ?>
