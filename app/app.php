@@ -44,5 +44,16 @@
         return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'stores' => $brand->getStores(), 'all_stores' => Store::getAll()));
     });
 
+    $app->post("/stores", function() use ($app) {
+        $store = new Store($_POST['name']);
+        $store->save();
+        return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll()));
+    });
+
+    $app->get("/stores/{id}", function($id) use ($app) {
+        $store = Store::find($id);
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $store->getBrands(), 'all_brands' => Brand::getAll()));
+    });
+
     return $app;
 ?>
