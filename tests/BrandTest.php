@@ -34,5 +34,19 @@
             //Assert
             $this->assertEquals($type, $result);
         }
+
+        function testSetType()
+        {
+            //Arrange
+            $type = "Nike";
+            $test_brand = new Brand($type);
+
+            //Act
+            $test_brand->setType("Adidas");
+            $result = $test_brand->getType();
+
+            //Assert
+            $this->assertEquals("Adidas", $result);
+        }
     }
 ?>
