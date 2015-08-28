@@ -122,6 +122,27 @@
             $this->assertEquals([], $result);
         }
 
+        function testDeleteStore()
+        {
+            //Arrange
+            $name = "Foot Locker";
+            $id = 1;
+            $test_store = new Store($name, $id);
+            $test_store->save();
+
+            $name2 = "Zappos";
+            $id2 = 2;
+            $test_store2 = new Store($name2, $id2);
+            $test_store2->save();
+
+
+            //Act
+            $test_store->delete();
+
+            //Assert
+            $this->assertEquals([$test_store2], Store::getAll());
+        }
+
         function testFind()
         {
             //Arrange
