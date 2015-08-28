@@ -37,5 +37,20 @@
             $this->assertEquals($name, $result);
 
         }
+
+        function testSetName()
+        {
+            //Arrange
+            $name = "Foot Locker";
+            $test_store = new Store($name);
+
+            //Act
+            $test_store->setName("Zappos");
+            $result = $test_store->getName();
+
+            //Assert
+            $this->assertEquals("Zappos", $result);
+        }
+
     }
 ?>
