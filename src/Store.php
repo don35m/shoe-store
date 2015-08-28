@@ -30,7 +30,7 @@
               $GLOBALS['DB']->exec("INSERT INTO stores (name) VALUES ('{$this->getName()}');");
               $this->id = $GLOBALS['DB']->lastInsertId();
         }
-
+        //There was very little teahing on how to write out a join statement
         static function getAll()
         {
             $returned_stores = $GLOBALS['DB']->query("SELECT * FROM stores;");
@@ -73,5 +73,28 @@
             $this->setName($new_name);
         }
 
+        function addBrand($brand)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO brands_stores (brand_id, store_id) VALUES ({$brand->getId()}, {$this->getId()});");
+        }
+
+        function getBrands()
+        {
+            $query = $GLOBALS['DB']->query("SELECT brand_id FROM brands_stores WHERE store_id = {$this->getId()};");
+            $brand_ids = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            $brands = array();
+            foreach($brand_ids as $id) {
+                $brand_id = $id['brand_id'];
+                $result = $GLOBALS['DB']->query("SELECT * FROM brands WHERE id = {$brand_id};");
+                $returned_brand = $result->fetchAll(PDO::FETCH_ASSOC);
+
+                $type = $returned_brand[0]['type'];
+                $id = $returned_brand[0]['id'];
+                $new_brand = new Brand($type, $id);
+                array_push($brands, $new_brand);
+            }
+            return $brands;
+        }
     }
 ?>

@@ -19,7 +19,7 @@
         protected function tearDown()
         {
             Brand::deleteAll();
-            //Store::deleteAll();
+            Store::deleteAll();
         }
 
         function testGetType()
@@ -153,6 +153,52 @@
 
             //Assert
             $this->assertEquals($test_brand, $result);
+        }
+
+        function testAddStore()
+        {
+            //Arrange
+            $name = "Foot Locker";
+            $id = 1;
+            $test_store = new Store($name, $id);
+            $test_store->save();
+
+            $type = "Nike";
+            $id2 = 2;
+            $test_brand = new Brand($type, $id2);
+            $test_brand->save();
+
+            //Act
+            $test_brand->addStore($test_store);
+
+            //Assert
+            $this->assertEquals($test_brand->getStores(), [$test_store]);
+        }
+
+        function testGetStores()
+        {
+            //Arrange
+            $name = "Foot Locker";
+            $id = 1;
+            $test_store = new Store($name, $id);
+            $test_store->save();
+
+            $name2 = "Zappos";
+            $id2 = 2;
+            $test_store2 = new Store($name2, $id2);
+            $test_store2->save();
+
+            $type = "Nike";
+            $id3 = 3;
+            $test_brand = new Brand($type, $id3);
+            $test_brand->save();
+
+            //Act
+            $test_brand->addStore($test_store);
+            $test_brand->addStore($test_store2);
+
+            //Assert
+            $this->assertEquals($test_brand->getStores(), [$test_store, $test_store2]);
         }
     }
 ?>
