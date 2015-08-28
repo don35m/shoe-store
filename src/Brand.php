@@ -61,6 +61,5 @@
             }
             return $found_brand;
         }
-
     }
 ?>
