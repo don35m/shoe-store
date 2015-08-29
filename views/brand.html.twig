@@ -9,7 +9,7 @@
         <h1>{{ brand.getType }}</h1>
 
         {% if stores is not empty %}
-            <p>Here are the stores for this brand:</p>
+            <h3>Here are the stores that carry this brand:</h3>
             <ul>
                 {% for store in stores %}
                     <li>{{ store.getName }}</li>
@@ -28,7 +28,7 @@
                 <option value="{{ store.getId }}"> {{ store.getName }} </option>
               {% endfor %}
             </select>
-            
+
             <button type='submit'>Add store</button>
         </form>
 

@@ -84,7 +84,6 @@
             $this->assertEquals([$test_brand, $test_brand2], $result);
         }
 
-
         function testSave()
         {
             //Arrange
